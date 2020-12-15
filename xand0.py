@@ -17,16 +17,25 @@ def void_places():
 
 
 def main(choice,board):
+    '''operates each an every function of
+        games either it may for checking the wiiner
+        or playing playerx or playery.
+        This is kind of gateway to pass through the set of rules of games to played'''
+
     print(board[0],"|",board[1],"|",board[2])
+    print("---------|------------|----------")
     print(board[3],"|",board[4],"|",board[5])
+    print("---------|------------|----------")
     print(board[6],"|",board[7],"|",board[8])
     print('\n')
-    win(board,choice)
+
 
     if choice=="x":
-        playerx(board)
+        if win(board,"0"):
+            playerx(board)
     if choice=="0":
-        player0(board)
+        if win(board,"x"):
+            player0(board)
     if choice=="q":
         print('[THANK YOUR FOR PLAYING]')
         exit()
@@ -39,25 +48,35 @@ def win(board,choice):
     #CHECKING ALL POSSIBILITES OF WINNERS
     if (board[0] == choice and board[1] == choice and board[2] == choice):
         winner(choice)
+        return False
     if (board[3] == choice and board[4] == choice and board[5] == choice):
         winner(choice)
+        return False
     if (board[6] == choice and board[7] == choice and board[8] == choice):
         winner(choice)
+        return False
     if (board[0] == choice and board[4] == choice and board[8] == choice):
         winner(choice)
+        return False
     if (board[0] == choice and board[3] == choice and board[6] == choice):
         winner(choice)
+        return False
     if (board[1] == choice and board[4] == choice and board[8] == choice):
         winner(choice)
+        return False
     if (board[2] == choice and board[5] == choice and board[8] == choice):
         winner(choice)
+        return False
     if (board[2] == choice and board[5] == choice and board[8] == choice):
         winner(choice)
+        return False
 
     if board.count('-') <=0 :
-        print("Tie!") 
+        print("Tie!")
         xand0(True , True)
 
+    else:
+        return True
 
 def playerx(board):
     #PLAYING X
@@ -97,7 +116,7 @@ def player0(board):
         remaining_places.clear() #REMOVES ALL ITEMS FROM LIST SO THAT REDUNDENCY WILL NOT BE THERE
         second_player_move(position)
 
-    else: 
+    else:
         try:
             print("enter position for 0:")
             position=int(input())
@@ -110,7 +129,7 @@ def player0(board):
 
 
 def xand0(game,loop):
-    #MAIN GAME LOOP 
+    #MAIN GAME LOOP
     global player_1
     global player_2
     global board
@@ -127,21 +146,21 @@ def xand0(game,loop):
             if play_again=="c":
                  xand0(True,False)
 
-        no_of_players = input("[HOW MANY PLAYERS ARE PLAYING?]:")
+        no_of_players = int(input("[HOW MANY PLAYERS ARE PLAYING?]:"))
         player_1 = input('[ENTER THE NAME OF FIRST PLAYER]:')
 
-        
+
         if no_of_players == '2':
             player_2 = input('[ENTER THE NAME OF SECOND PLAYER]:')
-        
+
         elif no_of_players == '1' :
             player_2 = 'Computer'
-        
+
         choice = 'x'
 
         player_data[player_1] = 'x'
         player_data[player_2] = '0'
-        
+
         for key , value in player_data.items():
             print(f'{key} plays {value}')
 
