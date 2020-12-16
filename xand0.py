@@ -18,14 +18,14 @@ def void_places():
 
 def main(choice,board):
     '''operates each an every function of
-        games either it may for checking the wiiner
+        games either it may be for checking the winner
         or playing playerx or playery.
         This is kind of gateway to pass through the set of rules of games to played'''
 
     print(board[0],"|",board[1],"|",board[2])
-    print("---------|------------|----------")
+    print("--|---|--")
     print(board[3],"|",board[4],"|",board[5])
-    print("---------|------------|----------")
+    print("--|---|--")
     print(board[6],"|",board[7],"|",board[8])
     print('\n')
 
@@ -67,11 +67,12 @@ def win(board,choice):
     if (board[2] == choice and board[5] == choice and board[8] == choice):
         winner(choice)
         return False
-    if (board[2] == choice and board[5] == choice and board[8] == choice):
+    if (board[2] == choice and board[4] == choice and board[6] == choice):
         winner(choice)
         return False
 
     if board.count('-') <=0 :
+        #CHECKS FOR TIE
         print("Tie!")
         xand0(True , True)
 
@@ -85,21 +86,20 @@ def playerx(board):
         position=int(input())
         position=position-1
         print(f'{player_1} plays {position+1}')
-        if board[position]=="0":
-            print("0 already exists")
+        if board[position]=="0" or board[position]=="x"  :
+            print("[PLACE ALREADY OCCUPIED]")
             choice="x"
             main(choice,board)
         board[position]='x'
         choice="0"
-        remaining_places = []
         main(choice,board)
     except:
         print('ENTER A VALID NUMBER BETWEEN 1-9')
         playerx(board)
 
 def second_player_move(position):
-    if board[position]=="x":
-        print("x already exists")
+    if board[position]=="x" or board[position]=='0':
+        print("[PLACE ALREADY OCCUPIED]")
         choice="0"
         main(choice,board)
     board[position]='0'
@@ -146,27 +146,31 @@ def xand0(game,loop):
             if play_again=="c":
                  xand0(True,False)
 
-        no_of_players = int(input("[HOW MANY PLAYERS ARE PLAYING?]:"))
-        player_1 = input('[ENTER THE NAME OF FIRST PLAYER]:')
+        try:
+            no_of_players = int(input("[HOW MANY PLAYERS ARE PLAYING?]:"))
+            player_1 = input('[ENTER THE NAME OF FIRST PLAYER]:')
 
 
-        if no_of_players == '2':
-            player_2 = input('[ENTER THE NAME OF SECOND PLAYER]:')
+            if (no_of_players) == 2:
+                player_2 = input('[ENTER THE NAME OF SECOND PLAYER]:')
 
-        elif no_of_players == '1' :
-            player_2 = 'Computer'
+            elif no_of_players == 1 :
+                player_2 = 'Computer'
 
-        choice = 'x'
+            choice = 'x'
 
-        player_data[player_1] = 'x'
-        player_data[player_2] = '0'
+            player_data[player_1] = 'x'
+            player_data[player_2] = '0'
 
-        for key , value in player_data.items():
-            print(f'{key} plays {value}')
+            for key , value in player_data.items():
+                print(f'{key} plays {value}')
 
-        print('\n')
-        main(choice,board)
-
+            print('\n')
+            main(choice,board)
+        except:
+            print("[WRONG INPUT]")
+            print("[CHOOSE NO OF PLAYERS IN NUMBERS EITHER 1 OR 2]")
+            xand0(True,False)
 
 if __name__== "__main__":
     remaining_places = []
