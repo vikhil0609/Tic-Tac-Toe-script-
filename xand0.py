@@ -36,9 +36,6 @@ def main(choice,board):
     if choice=="0":
         if win(board,"x"):
             player0(board)
-    if choice=="q":
-        print('[THANK YOUR FOR PLAYING]')
-        exit()
     else:
         print("invalid choice")
 
@@ -142,9 +139,11 @@ def xand0(game,loop):
             play_again=input("press q to quit or c to play again:")
             if play_again =="q" :
                 print('[THANK YOUR FOR PLAYING]')
-                exit()
+                quit()
+                xand0(True,False)
             if play_again=="c":
                  xand0(True,False)
+
 
         try:
             no_of_players = int(input("[HOW MANY PLAYERS ARE PLAYING?]:"))
@@ -167,6 +166,7 @@ def xand0(game,loop):
 
             print('\n')
             main(choice,board)
+
         except:
             print("[WRONG INPUT]")
             print("[CHOOSE NO OF PLAYERS IN NUMBERS EITHER 1 OR 2]")
